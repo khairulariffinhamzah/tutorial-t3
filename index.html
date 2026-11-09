@@ -880,6 +880,32 @@ npx t3@latest</pre>
         <p style="font-size:0.92rem; color:var(--text-muted);">Letakkan pembolehubah ini dalam <strong>Environment variables</strong>, bukan dalam <strong>Launch arguments</strong>. Instance ini berasingan, jadi akaun Claude lain (jika ada) tidak terjejas.</p>
       </div>
 
+      <h4 style="margin:22px 0 8px 0; color:var(--heading);">Contoh provider popular: Kimi, DeepSeek, GLM, MiniMax</h4>
+      <p>Banyak provider model terbuka menyediakan endpoint <strong>Anthropic-compatible</strong> khas untuk Claude Code, jadi anda boleh terus guna <strong>Cara 2</strong>. Biasanya harganya jauh lebih murah daripada model premium.</p>
+      <table>
+        <thead>
+          <tr><th>Provider (Model)</th><th><code>ANTHROPIC_BASE_URL</code></th><th>Dapatkan API key</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Moonshot AI</strong> (Kimi)</td><td><code>https://api.moonshot.ai/anthropic</code></td><td>platform.moonshot.ai</td></tr>
+          <tr><td><strong>DeepSeek</strong></td><td><code>https://api.deepseek.com/anthropic</code></td><td>platform.deepseek.com</td></tr>
+          <tr><td><strong>Z.ai</strong> (GLM)</td><td><code>https://api.z.ai/api/anthropic</code></td><td>z.ai</td></tr>
+          <tr><td><strong>MiniMax</strong></td><td><code>https://api.minimax.io/anthropic</code></td><td>minimax.io</td></tr>
+        </tbody>
+      </table>
+      <p>Contoh tetapan instance Claude untuk Kimi:</p>
+      <pre>ANTHROPIC_BASE_URL   = https://api.moonshot.ai/anthropic
+ANTHROPIC_AUTH_TOKEN = (API key Moonshot anda, tanda sensitive)
+ANTHROPIC_MODEL      = (ID model Kimi terkini dari dokumentasi Moonshot)</pre>
+      <ul>
+        <li><strong>Lebih mudah lagi:</strong> OpenCode sudah ada senarai terbina untuk banyak provider ini. Jalankan <code>opencode auth login</code>, pilih provider (contohnya DeepSeek atau Moonshot), masukkan API key, dan model terus muncul dalam T3 Code tanpa perlu tulis fail konfigurasi.</li>
+        <li>Buat <strong>satu instance untuk setiap provider</strong> (contohnya <code>Claude – Kimi</code>, <code>Claude – DeepSeek</code>) supaya mudah bertukar melalui pemilih model.</li>
+        <li>URL dan ID model boleh berubah. <strong>Sentiasa semak dokumentasi rasmi provider</strong> (cari bahagian "Claude Code" atau "Anthropic API compatibility").</li>
+      </ul>
+      <div class="callout callout-warning">
+        <strong>🌏 Privasi data:</strong> Setiap provider tertakluk kepada undang-undang negara tempat pelayannya beroperasi. Baca dasar privasi mereka, dan elakkan menghantar kod syarikat atau data sulit tanpa kebenaran majikan anda.
+      </div>
+
       <h4 style="margin:22px 0 8px 0; color:var(--heading);">Mahu guna model Anthropic (Claude) tanpa langganan Claude?</h4>
       <p>Pilihan rasmi yang disyorkan, semuanya bayar ikut penggunaan:</p>
       <table>
