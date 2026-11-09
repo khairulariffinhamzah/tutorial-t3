@@ -560,11 +560,12 @@
       <li><a href="#faq-troubleshoot">7. Soalan Lazim & Sandbox</a></li>
     </ul>
 
-    <div class="nav-label" style="margin-top:auto;">Langganan Anda</div>
+    <div class="nav-label" style="margin-top:auto;">Guna Langganan Sedia Ada</div>
     <div style="font-size:0.8rem; color:var(--text-muted); line-height:1.5;">
-      ✓ Claude Team<br>
-      ✓ OpenCode AI<br>
-      ✓ Gemini Pro (Antigravity)<br>
+      ✓ Claude (Pro / Max / Team / Enterprise)<br>
+      ✓ ChatGPT / Codex<br>
+      ✓ Google (Antigravity)<br>
+      ✓ OpenCode, Cursor, Grok<br>
       <span style="color:var(--accent);">→ Semua disatukan dalam T3.</span>
     </div>
   </aside>
@@ -574,7 +575,7 @@
     <header>
       <div class="pill">⚡ Dokumentasi Komprehensif • Bahasa Melayu</div>
       <h1>Tutorial Lengkap & Mendalam T3 Code</h1>
-      <p class="lead">Ketahui bagaimana T3 Code menggabungkan kuasa Claude Team, OpenCode, dan Gemini Pro di bawah satu kokpit berkuasa tanpa membazirkan langganan sedia ada anda.</p>
+      <p class="lead">Ketahui bagaimana T3 Code menggabungkan kuasa Claude, Codex, Gemini, OpenCode dan lain-lain di bawah satu kokpit berkuasa tanpa membazirkan langganan sedia ada anda.</p>
       <div class="stats">
         <span>🆓 <strong>Percuma</strong> &amp; open source (MIT)</span>
         <span>⭐ <strong>52k+</strong> bintang GitHub</span>
@@ -588,7 +589,7 @@
     <section id="kenapa-t3" class="section-block">
       <h2><span class="num">01</span> Mengapa Anda Perlu T3 Code?</h2>
       <p>
-        Bagi mereka yang telah melanggan <strong>Claude Team</strong>, <strong>OpenCode</strong>, dan <strong>Gemini Pro</strong>, soalan paling lazim ialah: <em>"Kenapa aku perlukan perisian lain lagi? Bukankah model-model ini sudah cukup hebat?"</em>
+        Bagi mereka yang sudah melanggan satu atau lebih perkhidmatan AI (contohnya <strong>Claude</strong>, <strong>ChatGPT/Codex</strong>, <strong>Gemini</strong> atau <strong>OpenCode</strong>), soalan paling lazim ialah: <em>"Kenapa aku perlukan perisian lain lagi? Bukankah model-model ini sudah cukup hebat?"</em>
       </p>
 
       <div class="callout">
@@ -757,10 +758,10 @@ npx t3@latest</pre>
 
       <div class="grid-2">
         <div class="box-feature">
-          <h4><span class="tag tag-claude">Claude</span> 1. Claude Team / Pro</h4>
+          <h4><span class="tag tag-claude">Claude</span> 1. Claude (Pro / Max / Team / Enterprise)</h4>
           <p>Jika komputer anda mempunyai Claude Code CLI, buka terminal (PowerShell atau Bash) dan jalankan:</p>
           <pre>claude auth login</pre>
-          <p style="font-size:0.92rem; color:var(--text-muted);">Pelayar web akan dibuka untuk mengesahkan akaun Claude Team anda. T3 Code akan terus mengesan sesi ini.</p>
+          <p style="font-size:0.92rem; color:var(--text-muted);">Pelayar web akan dibuka untuk log masuk ke akaun Claude anda, apa sahaja pelan yang anda langgan. T3 Code akan terus mengesan sesi ini.</p>
         </div>
 
         <div class="box-feature">
@@ -771,14 +772,31 @@ npx t3@latest</pre>
         </div>
       </div>
 
+      <h3>Pelan Claude Mana Yang Boleh Guna?</h3>
+      <p>Anda tidak perlu pelan tertentu. Mana-mana pelan Claude yang menyertakan <strong>Claude Code</strong> boleh disambung ke T3 Code:</p>
+      <table>
+        <thead>
+          <tr><th>Pelan Claude</th><th>Boleh Guna?</th><th>Nota</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Free</strong></td><td>❌ Tidak</td><td>Pelan percuma tidak termasuk Claude Code.</td></tr>
+          <tr><td><strong>Pro</strong></td><td>✅ Ya</td><td>Pilihan paling murah untuk individu. Had penggunaan paling rendah.</td></tr>
+          <tr><td><strong>Max</strong></td><td>✅ Ya</td><td>Had penggunaan jauh lebih tinggi. Sesuai jika anda jalankan banyak thread serentak.</td></tr>
+          <tr><td><strong>Team</strong></td><td>✅ Ya</td><td>Untuk syarikat atau pasukan. Akses Claude Code bergantung pada jenis seat yang diberikan oleh admin.</td></tr>
+          <tr><td><strong>Enterprise</strong></td><td>✅ Ya</td><td>Jika admin organisasi anda membenarkan Claude Code.</td></tr>
+          <tr><td><strong>API key (Claude Console)</strong></td><td>✅ Ya</td><td>Tanpa langganan bulanan; bayar ikut penggunaan token.</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.92rem; color:var(--text-muted);">Harga, had penggunaan dan kandungan setiap pelan boleh berubah. Semak halaman rasmi <a href="https://claude.com/pricing" style="color:var(--accent);">claude.com/pricing</a> untuk maklumat terkini. Logik yang sama juga terpakai untuk provider lain: T3 Code hanya menggunakan langganan yang anda sudah ada.</p>
+
       <div class="box-feature" style="margin-top:16px;">
-        <h4><span class="tag tag-gemini">Gemini</span> 3. Google Gemini Pro / Antigravity</h4>
-        <p>Bagi ekosistem Google / Gemini Pro, anda tidak perlukan sebarang pemasangan CLI terminal tambahan:</p>
+        <h4><span class="tag tag-gemini">Gemini</span> 3. Google Gemini / Antigravity</h4>
+        <p>Bagi ekosistem Google / Gemini, anda tidak perlukan sebarang pemasangan CLI terminal tambahan:</p>
         <ol>
           <li>Buka tetingkap <strong>Settings</strong> di T3 Code.</li>
           <li>Pergi ke bahagian <strong>Providers &gt; Antigravity</strong>.</li>
           <li>Klik butang <strong>Install Antigravity</strong> dan <strong>Sign in with Google</strong>.</li>
-          <li>Log masuk dengan akaun Google yang mempunyai langganan Gemini Pro / Advanced anda. Selesai!</li>
+          <li>Log masuk dengan akaun Google anda. Langganan Google AI berbayar (contohnya Google AI Pro) memberi had penggunaan yang lebih tinggi. Selesai!</li>
         </ol>
       </div>
 
