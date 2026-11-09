@@ -554,7 +554,7 @@
     <ul class="nav-links">
       <li><a href="#kenapa-t3">1. Mengapa Perlu T3 Code?</a></li>
       <li><a href="#senibina-teras">2. Konsep & Mod Operasi</a></li>
-      <li><a href="#persediaan-akaun">3. Pasang &amp; Setup Langganan</a></li>
+      <li><a href="#persediaan-akaun">3. Pasang, Langganan &amp; API</a></li>
       <li><a href="#tutorial-praktikal">4. Aliran Kerja & Tutorial</a></li>
       <li><a href="#ciri-berkuasa">5. Worktree, Mobile, PR &amp; Fork</a></li>
       <li><a href="#banyak-akaun">6. Urus Banyak Akaun</a></li>
@@ -818,6 +818,96 @@ npx t3@latest</pre>
         </tbody>
       </table>
       <p style="font-size:0.92rem; color:var(--text-muted);">Menurut t3.codes, harness baharu ditambah setiap minggu. Semak halaman Settings &gt; Providers dalam aplikasi untuk senarai terkini.</p>
+
+      <h3 id="custom-provider">Langkah C: Tiada Langganan? Guna Custom Provider (API Key)</h3>
+      <p>Anda <strong>tidak wajib</strong> ada langganan seperti Claude Pro untuk guna T3 Code. Jika anda ada API key daripada mana-mana provider yang menyokong format <strong>OpenAI-compatible</strong> atau <strong>Anthropic-compatible</strong>, anda boleh sambungkannya sendiri.</p>
+
+      <h4 style="margin:18px 0 8px 0; color:var(--heading);">Kenal pasti format endpoint anda</h4>
+      <table>
+        <thead>
+          <tr><th>Format</th><th>Tanda dalam dokumentasi provider</th><th>Sambung melalui</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>OpenAI-compatible</strong></td><td>Endpoint <code>/v1/chat/completions</code></td><td>OpenCode (Cara 1)</td></tr>
+          <tr><td><strong>Anthropic-compatible</strong></td><td>Endpoint <code>/v1/messages</code></td><td>Instance Claude (Cara 2)</td></tr>
+        </tbody>
+      </table>
+
+      <div class="box-feature" style="margin-top:16px;">
+        <h4><span class="tag tag-opencode">OpenAI</span> Cara 1: Endpoint OpenAI-compatible melalui OpenCode</h4>
+        <p>Pasang OpenCode, kemudian tambah provider anda dalam fail <code>~/.config/opencode/opencode.json</code>:</p>
+        <pre>{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "provider-saya": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Provider Saya",
+      "options": {
+        "baseURL": "https://api.contoh.com/v1",
+        "apiKey": "{env:PROVIDER_SAYA_API_KEY}"
+      },
+      "models": {
+        "nama-model-1": { "name": "Model 1" }
+      }
+    }
+  }
+}</pre>
+        <ol>
+          <li>Tukar <code>baseURL</code> dan nama model mengikut dokumentasi provider anda.</li>
+          <li>Simpan API key sebagai environment variable <code>PROVIDER_SAYA_API_KEY</code>. Jangan tulis API key terus dalam fail.</li>
+          <li>Dalam T3 Code: <strong>Settings &gt; Providers &gt; OpenCode &gt; Refresh provider status</strong>.</li>
+          <li>Model anda kini muncul dalam pemilih model.</li>
+        </ol>
+      </div>
+
+      <div class="box-feature" style="margin-top:16px;">
+        <h4><span class="tag tag-claude">Anthropic</span> Cara 2: Endpoint Anthropic-compatible melalui instance Claude</h4>
+        <p>Cara ini menggunakan Claude Code sebagai ejen, tetapi menghantar permintaan ke endpoint pilihan anda. Pasang Claude Code CLI (tidak perlu log masuk akaun Claude), kemudian:</p>
+        <ol>
+          <li>Buka <strong>Settings &gt; Providers</strong> dan tambah <strong>instance Claude baharu</strong> (contohnya nama: <code>Claude – API Saya</code>).</li>
+          <li>Dalam bahagian <strong>Environment variables</strong> instance itu, isi:</li>
+        </ol>
+        <table>
+          <thead>
+            <tr><th>Variable</th><th>Nilai</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>ANTHROPIC_BASE_URL</code></td><td>URL endpoint, contohnya <code>https://api.contoh.com</code></td></tr>
+            <tr><td><code>ANTHROPIC_AUTH_TOKEN</code></td><td>API key anda (tandakan sebagai <em>sensitive</em>)</td></tr>
+            <tr><td><code>ANTHROPIC_MODEL</code></td><td>ID model yang disediakan oleh provider</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.92rem; color:var(--text-muted);">Letakkan pembolehubah ini dalam <strong>Environment variables</strong>, bukan dalam <strong>Launch arguments</strong>. Instance ini berasingan, jadi akaun Claude lain (jika ada) tidak terjejas.</p>
+      </div>
+
+      <h4 style="margin:22px 0 8px 0; color:var(--heading);">Mahu guna model Anthropic (Claude) tanpa langganan Claude?</h4>
+      <p>Pilihan rasmi yang disyorkan, semuanya bayar ikut penggunaan:</p>
+      <table>
+        <thead>
+          <tr><th>Sumber</th><th>Cara sambung dalam instance Claude</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Anthropic API</strong> (Claude Console)</td><td>Environment variable <code>ANTHROPIC_API_KEY</code> = API key dari console.anthropic.com</td></tr>
+          <tr><td><strong>Amazon Bedrock</strong></td><td><code>CLAUDE_CODE_USE_BEDROCK=1</code> dan <code>AWS_REGION</code>, bersama kelayakan AWS anda</td></tr>
+          <tr><td><strong>Google Cloud Vertex AI</strong></td><td><code>CLAUDE_CODE_USE_VERTEX=1</code>, <code>CLOUD_ML_REGION</code> dan <code>ANTHROPIC_VERTEX_PROJECT_ID</code></td></tr>
+          <tr><td><strong>Gateway pihak ketiga yang sah</strong></td><td>Ikut Cara 1 atau Cara 2 mengikut format yang gateway itu sediakan</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-warning">
+        <strong>⚠️ Berhati-hati dengan "API Claude murah" yang tidak rasmi</strong>
+        <p style="margin-top:8px;">Ada laman yang menjual akses Claude jauh lebih murah daripada harga rasmi. Sebelum guna, ingat:</p>
+        <ul style="margin-bottom:0;">
+          <li><strong>Semua kod dan fail projek anda melalui pelayan mereka.</strong> Jangan guna untuk kod syarikat atau data sulit.</li>
+          <li>Sesetengahnya menggunakan akaun atau API key yang dikongsi secara tidak sah, jadi perkhidmatan boleh terputus tanpa amaran.</li>
+          <li>Model yang diberikan tidak semestinya model sebenar yang diiklankan.</li>
+        </ul>
+        <p style="margin-top:10px; margin-bottom:0;">Pilih provider yang mempunyai terma perkhidmatan dan dasar privasi yang jelas.</p>
+      </div>
+
+      <div class="callout">
+        <strong>🔐 Simpan API key dengan selamat:</strong> Jangan commit fail yang mengandungi API key ke Git. Gunakan environment variable, atau ciri <strong>Secrets</strong> dalam T3 Code.
+      </div>
     </section>
 
     <!-- SECTION 4 -->
