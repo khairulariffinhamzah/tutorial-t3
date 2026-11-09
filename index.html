@@ -476,6 +476,59 @@
       font-size: 0.85rem;
     }
 
+    /* FIGURE / SCREENSHOT */
+    figure.shot {
+      margin: 24px 0 28px 0;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--card-bg);
+    }
+    figure.shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    figure.shot figcaption {
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--card-border);
+    }
+    figure.shot figcaption a { color: var(--accent); }
+
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin: 0 0 24px 0;
+    }
+    .legend div {
+      background: var(--box-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-size: 0.88rem;
+      color: var(--body-text);
+    }
+    .legend b { color: var(--heading); display: block; margin-bottom: 4px; }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .stats span {
+      font-size: 0.82rem;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text-muted);
+    }
+    .stats strong { color: var(--heading); }
+
     @media (max-width: 900px) {
       body { flex-direction: column; }
       aside { width: 100%; height: auto; position: static; }
@@ -500,9 +553,9 @@
     <ul class="nav-links">
       <li><a href="#kenapa-t3">1. Mengapa Perlu T3 Code?</a></li>
       <li><a href="#senibina-teras">2. Konsep & Mod Operasi</a></li>
-      <li><a href="#persediaan-akaun">3. Setup Langganan Sedia Ada</a></li>
+      <li><a href="#persediaan-akaun">3. Pasang &amp; Setup Langganan</a></li>
       <li><a href="#tutorial-praktikal">4. Aliran Kerja & Tutorial</a></li>
-      <li><a href="#ciri-berkuasa">5. Worktree, Mobile & Subagents</a></li>
+      <li><a href="#ciri-berkuasa">5. Worktree, Mobile, PR &amp; Fork</a></li>
       <li><a href="#pintasan-keyboard">6. Cheat Sheet Shortcuts</a></li>
       <li><a href="#faq-troubleshoot">7. Soalan Lazim & Sandbox</a></li>
     </ul>
@@ -522,6 +575,13 @@
       <div class="pill">⚡ Dokumentasi Komprehensif • Bahasa Melayu</div>
       <h1>Tutorial Lengkap & Mendalam T3 Code</h1>
       <p class="lead">Ketahui bagaimana T3 Code menggabungkan kuasa Claude Team, OpenCode, dan Gemini Pro di bawah satu kokpit berkuasa tanpa membazirkan langganan sedia ada anda.</p>
+      <div class="stats">
+        <span>🆓 <strong>Percuma</strong> &amp; open source (MIT)</span>
+        <span>⭐ <strong>52k+</strong> bintang GitHub</span>
+        <span>👥 <strong>500,000+</strong> pembangun</span>
+        <span>📦 Versi stabil <strong>v0.1.7</strong></span>
+      </div>
+      <p style="font-size:0.8rem; color:var(--text-muted); margin-top:10px;">Statistik dan versi diambil dari <a href="https://t3.codes/" style="color:var(--accent);">t3.codes</a> pada 9 November 2026.</p>
     </header>
 
     <!-- SECTION 1 -->
@@ -533,6 +593,21 @@
 
       <div class="callout">
         <strong>Pencerahan Utama:</strong> T3 Code bukanlah model AI baharu, dan bukan SaaS berbayar. Ia adalah sebuah <strong>"Agent Harness Control Surface"</strong> (kokpit kawalan ejen). Ia dicipta oleh pasukan Theo Browne (Ping.gg) untuk menyelesaikan kelemahan terbesar pembangunan perisian berkuasa AI hari ini: <em>Fragmentasi dan Ketiadaan Antara Muka Pengurusan Serentak</em>.
+      </div>
+
+      <p>Laman rasmi menggambarkannya sebagai <em>"The open-source control plane for coding agents"</em>: satu pusat kawalan untuk mengurus Claude Code, Codex, Antigravity, OpenCode, Cursor dan Grok dari satu skrin, menggunakan langganan yang anda sudah ada.</p>
+
+      <h3>Rupa Sebenar T3 Code</h3>
+      <figure class="shot">
+        <img src="img/t3-app-desktop.webp" width="1728" height="1080" loading="lazy"
+             alt="Antara muka T3 Code: senarai thread di kiri, thread yang menjalankan 4 subagent di tengah, panel Git dan lineage subagent di kanan, serta kotak arahan dengan pemilih model di bawah">
+        <figcaption>Satu thread menjalankan 4 subagent (Claude, Codex, Muse dan Gemini) serentak. Sumber imej: <a href="https://t3.codes/">t3.codes</a>.</figcaption>
+      </figure>
+      <div class="legend">
+        <div><b>⬅️ Sidebar kiri</b>Senarai semua thread mengikut projek, berserta nama branch (cth. <code>t3/dark-mode-dashboard</code>) dan status: <em>Working</em>, <em>Waiting</em>, <em>Done</em>.</div>
+        <div><b>⏺️ Tengah</b>Perbualan thread semasa. Di sini anda nampak subagent mana yang sedang bekerja dan berapa lama.</div>
+        <div><b>➡️ Panel kanan</b>Kawalan Git: buka dalam editor, Setup Worktree, pilih branch, Commit, dan senarai fail yang berubah. Bahagian <em>Lineage</em> menunjukkan setiap subagent.</div>
+        <div><b>⬇️ Kotak arahan</b>Taip arahan. Guna <code>@</code> untuk fail, <code>$</code> untuk skill, <code>/</code> untuk command. Pemilih model (cth. <em>Opus 5.5 High</em>) di sebelah kanan.</div>
       </div>
 
       <h3>Dilema Sebelum Menggunakan T3 Code</h3>
@@ -564,12 +639,12 @@
           <tr>
             <td><strong>Pusat Kawalan</strong></td>
             <td>Bertaburan di tab browser dan aplikasi terminal berasingan.</td>
-            <td><strong>Satu UI Elegan</strong>: Semua provider diakses dari tetingkap yang sama. Tukar model semudah menukar tab.</td>
+            <td><strong>Satu UI Elegan</strong>: 6 harness (Claude Code, Codex, Antigravity, OpenCode, Cursor, Grok) diakses dari tetingkap yang sama. Model boleh ditukar di tengah-tengah thread.</td>
           </tr>
           <tr>
             <td><strong>Kos Penggunaan</strong></td>
             <td>Sesetengah perisian pihak ketiga mengecaj yuran langganan tambahan bulanan.</td>
-            <td><strong>100% Percuma & Open Source (MIT)</strong>. Anda hanya menggunakan sesi login rasmi anda sedia ada (*Bring Your Own Auth*).</td>
+            <td><strong>100% Percuma & Open Source (MIT)</strong>. Anda hanya menggunakan sesi login rasmi anda sedia ada (*Bring Your Own Sub*). T3 tidak menjual semula token dan tidak mengenakan had kuota sendiri.</td>
           </tr>
           <tr>
             <td><strong>Kerja Serentak (Parallel Worktrees)</strong></td>
@@ -598,7 +673,7 @@
       <h3>1. Konsep "Thread" (Bukan Sekadar Chat)</h3>
       <p>Di T3 Code, satu <strong>Thread</strong> mewakili satu unit tugasan kerja (*Job Session*). Anda boleh memiliki puluhan thread yang aktif serentak:</p>
       <ul>
-        <li>Thread 1: <code>refactor/auth-jwt</code> (Dijana oleh Claude 3.7 Sonnet)</li>
+        <li>Thread 1: <code>refactor/auth-jwt</code> (Dijana oleh Claude Opus 5.5)</li>
         <li>Thread 2: <code>docs/api-specification</code> (Dijana oleh Gemini Pro)</li>
         <li>Thread 3: <code>fix/database-leak</code> (Dijana oleh OpenCode)</li>
       </ul>
@@ -649,7 +724,35 @@
 
     <!-- SECTION 3 -->
     <section id="persediaan-akaun" class="section-block">
-      <h2><span class="num">03</span> Persediaan: Menghubungkan Langganan Sedia Ada</h2>
+      <h2><span class="num">03</span> Persediaan: Pasang T3 Code &amp; Sambung Langganan</h2>
+
+      <h3>Langkah A: Muat Turun &amp; Pasang T3 Code</h3>
+      <p>Pergi ke <a href="https://t3.codes/download" style="color:var(--accent);">t3.codes/download</a> dan pilih versi untuk sistem anda. Pilih saluran <strong>Stable</strong> (disyorkan); saluran <strong>Nightly</strong> untuk yang mahu cuba ciri terbaru yang mungkin belum stabil.</p>
+      <table>
+        <thead>
+          <tr><th>Platform</th><th>Fail Pemasang</th><th>Nota</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Windows 10 / 11</strong></td><td><code>.exe</code></td><td>Klik dua kali dan ikut wizard pemasangan.</td></tr>
+          <tr><td><strong>macOS</strong></td><td><code>.dmg</code></td><td>Apple Silicon (arm64) secara lalai. Mac Intel guna build x64.</td></tr>
+          <tr><td><strong>Linux</strong></td><td><code>.deb</code> / <code>AppImage</code></td><td>Debian/Ubuntu guna <code>.deb</code>. Ada juga build arm64.</td></tr>
+          <tr><td><strong>Telefon</strong></td><td>App Store / Google Play</td><td>Aplikasi kawalan jauh untuk iPhone, iPad dan Android (lihat bahagian 05).</td></tr>
+        </tbody>
+      </table>
+      <p>Atau pasang melalui terminal:</p>
+      <pre># Windows (PowerShell)
+irm https://t3.codes/install.ps1 | iex
+
+# macOS / Linux
+curl -fsSL https://t3.codes/install.sh | sh
+
+# Cuba sekali tanpa pasang (perlukan Node.js)
+npx t3@latest</pre>
+      <div class="callout callout-warning">
+        <strong>⚠️ Keselamatan:</strong> Arahan <code>irm ... | iex</code> dan <code>curl ... | sh</code> menjalankan skrip terus dari internet. Gunakan hanya domain rasmi <code>t3.codes</code>. Kalau ragu-ragu, guna fail pemasang dari halaman muat turun atau <a href="https://github.com/pingdotgg/t3code/releases" style="color:var(--accent);">GitHub Releases</a>.
+      </div>
+
+      <h3>Langkah B: Sambungkan Langganan Sedia Ada</h3>
       <p>Anda tidak perlu memasukkan API key berbayar sekiranya anda sudah mempunyai akaun langganan. Sambungkan terus sesi peranti anda:</p>
 
       <div class="grid-2">
@@ -678,6 +781,23 @@
           <li>Log masuk dengan akaun Google yang mempunyai langganan Gemini Pro / Advanced anda. Selesai!</li>
         </ol>
       </div>
+
+      <h3>Semua Harness Yang Disokong</h3>
+      <p>Selain tiga di atas, T3 Code juga menyokong harness lain. Anda hanya perlu log masuk sekali dengan akaun yang anda sudah bayar:</p>
+      <table>
+        <thead>
+          <tr><th>Harness</th><th>Cara Log Masuk</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Claude Code</strong></td><td><code>claude auth login</code></td></tr>
+          <tr><td><strong>Codex CLI</strong> (OpenAI)</td><td><code>codex login</code></td></tr>
+          <tr><td><strong>OpenCode</strong></td><td><code>opencode auth login</code></td></tr>
+          <tr><td><strong>Antigravity</strong> (Google)</td><td>Google sign-in dari Settings</td></tr>
+          <tr><td><strong>Cursor</strong></td><td>Melalui <code>@cursor/sdk</code></td></tr>
+          <tr><td><strong>Grok CLI</strong> (xAI)</td><td><code>grok login</code></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.85rem; color:var(--text-muted);">Menurut t3.codes, harness baharu ditambah setiap minggu. Semak halaman Settings &gt; Providers dalam aplikasi untuk senarai terkini.</p>
     </section>
 
     <!-- SECTION 4 -->
@@ -698,8 +818,8 @@
           <h3>Cipta Thread Baharu & Pilih Model Yang Tepat</h3>
           <p>Tekan <span class="tag tag-shortcut">Ctrl + N</span> untuk membuka thread. Di penjuru thread, tentukan AI yang paling berpadanan dengan jenis tugasan:</p>
           <ul>
-            <li><strong>Claude 3.7 / 3.5 Sonnet:</strong> Paling mantap untuk tugas pengaturcaraan logik rumit, refactoring kod sedia ada, dan debugging.</li>
-            <li><strong>Gemini 2.5 Pro:</strong> Paling unggul apabila anda memerlukan AI membaca keseluruhan dokumentasi projek beribu baris sekaligus (kerana tingkap konteksnya yang amat besar sehingga 1–2 juta token).</li>
+            <li><strong>Claude (Opus 5.5 / Sonnet 5.5):</strong> Paling mantap untuk tugas pengaturcaraan logik rumit, refactoring kod sedia ada, dan debugging.</li>
+            <li><strong>Gemini Pro (melalui Antigravity):</strong> Paling unggul apabila anda memerlukan AI membaca keseluruhan dokumentasi projek beribu baris sekaligus (kerana tingkap konteksnya yang amat besar sehingga 1–2 juta token).</li>
             <li><strong>OpenCode:</strong> Sesuai untuk pengaturcaraan pantas dan skrip automasi harian.</li>
           </ul>
         </div>
@@ -756,11 +876,31 @@
             <li>Buka terminal komputer anda dan pasang servis latar belakang:
               <pre>t3 service install</pre>
             </li>
-            <li>Muat turun aplikasi <strong>T3 Code</strong> di telefon pintar anda (tersedia di iOS App Store dan Google Play Store).</li>
+            <li>Muat turun aplikasi <strong>T3 Code</strong> di telefon pintar anda: <a href="https://apps.apple.com/us/app/t3-code-remote-claude-more/id6787819824" style="color:var(--accent);">iOS App Store</a> atau <a href="https://play.google.com/store/apps/details?id=com.t3tools.t3code" style="color:var(--accent);">Google Play</a>.</li>
             <li>Imbas kod QR daripada desktop anda untuk *pairing*.</li>
             <li>Sekarang, anda boleh berjalan keluar, minum kopi, dan tetap menerima notifikasi kelulusan perintah terus pada skrin telefon anda!</li>
           </ol>
         </div>
+      </div>
+
+      <div class="card" style="margin-top:18px;">
+        <h3 style="margin-top:0;">🚀 3. Commit, Push &amp; Buka PR Dengan Satu Butang</h3>
+        <p>Setiap thread ejen menulis ke branch sendiri. Bila kerja dah memuaskan, tekan <strong>Commit &amp; push</strong> di panel Git sebelah kanan. T3 Code boleh terus buka Pull Request di GitHub tanpa anda taip arahan git di terminal:</p>
+        <ul>
+          <li><strong>Tajuk dan penerangan PR dijana automatik</strong>, termasuk changelog.</li>
+          <li><strong>Semak diff dalam aplikasi</strong> sebelum push (butang <em>View diff</em>).</li>
+          <li>Sokong <strong>Draft PR</strong>, <strong>stacked PR</strong> dan <strong>amend</strong>.</li>
+          <li>Guna login GitHub sedia ada anda (contohnya <code>gh auth login</code>).</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0;">🍴 4. Ubah Suai T3 Code Sendiri (Fork)</h3>
+        <p>Oleh kerana T3 Code berlesen MIT, anda bebas fork, tukar rupa UI, tambah ejen atau alat sendiri, dan edar build anda sendiri. Kod sumber: <a href="https://github.com/pingdotgg/t3code" style="color:var(--accent);">github.com/pingdotgg/t3code</a>.</p>
+        <pre>gh repo fork pingdotgg/t3code --clone
+cd t3code &amp;&amp; vp install
+vp run dev</pre>
+        <p style="font-size:0.85rem; color:var(--text-muted);">Arahan di atas diambil dari laman rasmi. Ini hanya untuk pembangun yang mahu ubah kod T3 Code. Pengguna biasa tidak perlu buat langkah ini.</p>
       </div>
     </section>
 
