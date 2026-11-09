@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panduan & Tutorial Lengkap T3 Code (Master Reference)</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --sidebar-bg: #0d1322;
+      --card-bg: #111827;
+      --card-border: #1e293b;
+      --card-hover: #172238;
+      --accent: #38bdf8;
+      --accent-rgb: 56, 189, 248;
+      --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --code-bg: #030712;
+      --tag-claude: #f97316;
+      --tag-gemini: #3b82f6;
+      --tag-opencode: #10b981;
+      --radius-sm: 6px;
+      --radius: 12px;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.7;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR NAVIGATION */
+    aside {
+      width: 290px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--card-border);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 30px 20px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      background: var(--accent-gradient);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #000;
+      font-size: 1.1rem;
+    }
+
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin: 18px 0 8px 6px;
+    }
+
+    .nav-links {
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 8px 12px;
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.88rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+      margin-bottom: 2px;
+    }
+
+    .nav-links a:hover {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+      transform: translateX(4px);
+    }
+
+    /* MAIN CONTENT */
+    main {
+      flex: 1;
+      padding: 40px 48px 80px 48px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 48px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+    }
+
+    p.lead {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* CARDS & SECTIONS */
+    .section-block {
+      margin-bottom: 56px;
+      scroll-margin-top: 30px;
+    }
+
+    h2 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: -0.4px;
+    }
+
+    h2 .num {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 6px;
+      font-size: 0.95rem;
+      padding: 2px 9px;
+      font-family: var(--font-mono);
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      color: #e2e8f0;
+      margin: 26px 0 12px 0;
+      font-weight: 600;
+    }
+
+    p {
+      color: #cbd5e1;
+      font-size: 0.98rem;
+      margin-bottom: 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    /* CALLOUT BOXES */
+    .callout {
+      border-left: 4px solid var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+      border-radius: 4px 8px 8px 4px;
+      padding: 18px 22px;
+      margin: 20px 0;
+    }
+
+    .callout-warning {
+      border-left-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.08);
+    }
+
+    .callout-warning strong {
+      color: #fbbf24;
+    }
+
+    .callout-success {
+      border-left-color: #10b981;
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    .callout-success strong {
+      color: #34d399;
+    }
+
+    /* TABLES */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.92rem;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid var(--card-border);
+      padding: 13px 16px;
+      text-align: left;
+    }
+
+    th {
+      background: #1e293b;
+      color: #f8fafc;
+      font-weight: 600;
+    }
+
+    td {
+      background: #0d1526;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td {
+      background: #0a1120;
+    }
+
+    /* CODE & TERMINAL BLOCKS */
+    pre {
+      background: var(--code-bg);
+      border: 1px solid #1f293d;
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: #38bdf8;
+      margin: 14px 0 18px 0;
+    }
+
+    code {
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.09);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      color: #f1f5f9;
+    }
+
+    /* GRIDS */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 18px;
+      margin: 18px 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+      margin: 18px 0;
+    }
+
+    .box-feature {
+      background: #0d1527;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .box-feature:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .box-feature h4 {
+      font-size: 1.05rem;
+      color: #f8fafc;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* TAGS & BADGES */
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+
+    .tag-claude { background: rgba(249, 115, 22, 0.2); color: #fb923c; border: 1px solid #ea580c; }
+    .tag-gemini { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid #2563eb; }
+    .tag-opencode { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #059669; }
+    .tag-shortcut { background: #1e293b; color: #38bdf8; border: 1px solid #334155; font-family: var(--font-mono); font-size: 0.8rem; }
+
+    ul, ol {
+      margin-left: 22px;
+      margin-bottom: 16px;
+      color: #cbd5e1;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    /* WORKFLOW STEPS */
+    .workflow-step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .step-badge {
+      width: 32px;
+      height: 32px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding-top: 30px;
+      margin-top: 60px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 900px) {
+      body { flex-direction: column; }
+      aside { width: 100%; height: auto; position: static; }
+      main { padding: 24px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ASIDE / TABLE OF CONTENTS -->
+  <aside>
+    <div class="brand">
+      <div class="brand-logo">T3</div>
+      <div>
+        <div class="brand-title">T3 Code Manual</div>
+        <small style="color:var(--text-muted); font-size:0.75rem;">v1.0 • Panduan Rujukan</small>
+      </div>
+    </div>
+
+    <div class="nav-label">Isi Kandungan</div>
+    <ul class="nav-links">
+      <li><a href="#kenapa-t3">1. Mengapa Perlu T3 Code?</a></li>
+      <li><a href="#senibina-teras">2. Konsep & Mod Operasi</a></li>
+      <li><a href="#persediaan-akaun">3. Setup Langganan Sedia Ada</a></li>
+      <li><a href="#tutorial-praktikal">4. Aliran Kerja & Tutorial</a></li>
+      <li><a href="#ciri-berkuasa">5. Worktree, Mobile & Subagents</a></li>
+      <li><a href="#pintasan-keyboard">6. Cheat Sheet Shortcuts</a></li>
+      <li><a href="#faq-troubleshoot">7. Soalan Lazim & Sandbox</a></li>
+    </ul>
+
+    <div class="nav-label" style="margin-top:auto;">Langganan Anda</div>
+    <div style="font-size:0.8rem; color:#94a3b8; line-height:1.5;">
+      ✓ Claude Team<br>
+      ✓ OpenCode AI<br>
+      ✓ Gemini Pro (Antigravity)<br>
+      <span style="color:#38bdf8;">→ Semua disatukan dalam T3.</span>
+    </div>
+  </aside>
+
+  <!-- MAIN ARTICLE -->
+  <main>
+    <header>
+      <div class="pill">⚡ Dokumentasi Komprehensif • Bahasa Melayu</div>
+      <h1>Tutorial Lengkap & Mendalam T3 Code</h1>
+      <p class="lead">Ketahui bagaimana T3 Code menggabungkan kuasa Claude Team, OpenCode, dan Gemini Pro di bawah satu kokpit berkuasa tanpa membazirkan langganan sedia ada anda.</p>
+    </header>
+
+    <!-- SECTION 1 -->
+    <section id="kenapa-t3" class="section-block">
+      <h2><span class="num">01</span> Mengapa Anda Perlu T3 Code?</h2>
+      <p>
+        Bagi mereka yang telah melanggan <strong>Claude Team</strong>, <strong>OpenCode</strong>, dan <strong>Gemini Pro</strong>, soalan paling lazim ialah: <em>"Kenapa aku perlukan perisian lain lagi? Bukankah model-model ini sudah cukup hebat?"</em>
+      </p>
+
+      <div class="callout">
+        <strong>Pencerahan Utama:</strong> T3 Code bukanlah model AI baharu, dan bukan SaaS berbayar. Ia adalah sebuah <strong>"Agent Harness Control Surface"</strong> (kokpit kawalan ejen). Ia dicipta oleh pasukan Theo Browne (Ping.gg) untuk menyelesaikan kelemahan terbesar pembangunan perisian berkuasa AI hari ini: <em>Fragmentasi dan Ketiadaan Antara Muka Pengurusan Serentak</em>.
+      </div>
+
+      <h3>Dilema Sebelum Menggunakan T3 Code</h3>
+      <div class="grid-3">
+        <div class="box-feature">
+          <h4>🌪️ Kekusutan Terminal</h4>
+          <p>Anda membuka 3–4 tetingkap terminal berasingan: satu untuk Claude Code CLI, satu untuk OpenCode, satu lagi untuk terminal projek. Susah memantau apa yang sedang berlaku.</p>
+        </div>
+        <div class="box-feature">
+          <h4>💥 Pertembungan Kod (Git Conflict)</h4>
+          <p>Jika anda minta Claude Code buat UI, dan serentak itu minta model lain tulis unit test di folder yang sama, kedua-duanya akan menimpa kod sesama sendiri (*dirty working tree*).</p>
+        </div>
+        <div class="box-feature">
+          <h4>🪑 Terikat Pada Meja Kerja</h4>
+          <p>Jika agent anda sedang menjalankan analisis besar atau refactoring berdurasi 15 minit, anda terpaksa menunggu di hadapan PC kerana tiada cara mudah memantaunya dari telefon.</p>
+        </div>
+      </div>
+
+      <h3>Matriks Perbandingan Mendalam</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Aspek</th>
+            <th>Cara Tradisional (CLI / Web Asing)</th>
+            <th>Dengan Kokpit T3 Code</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Pusat Kawalan</strong></td>
+            <td>Bertaburan di tab browser dan aplikasi terminal berasingan.</td>
+            <td><strong>Satu UI Elegan</strong>: Semua provider diakses dari tetingkap yang sama. Tukar model semudah menukar tab.</td>
+          </tr>
+          <tr>
+            <td><strong>Kos Penggunaan</strong></td>
+            <td>Sesetengah perisian pihak ketiga mengecaj yuran langganan tambahan bulanan.</td>
+            <td><strong>100% Percuma & Open Source (MIT)</strong>. Anda hanya menggunakan sesi login rasmi anda sedia ada (*Bring Your Own Auth*).</td>
+          </tr>
+          <tr>
+            <td><strong>Kerja Serentak (Parallel Worktrees)</strong></td>
+            <td>Sangat berisiko merosakkan fail projek utama jika dijalankan serentak.</td>
+            <td><strong>Sokongan Terbina Git Worktrees</strong>: Setiap thread berjalan di atas branch terasing sendiri secara automatik.</td>
+          </tr>
+          <tr>
+            <td><strong>Semakan Kod Visual (Diff Review)</strong></td>
+            <td>Membaca teks merah/hijau terminal yang panjang tanpa penunjuk baris jelas.</td>
+            <td><strong>Visual Diff Inspector</strong> interaktif: Cari perbezaan kod dengan <code>Ctrl + F</code>, semak, dan luluskan secara berasingan.</td>
+          </tr>
+          <tr>
+            <td><strong>Kawalan Jauh (Mobile Remote)</strong></td>
+            <td>Perlu setup SSH atau VPN yang rumit pada telefon pintar.</td>
+            <td><strong>Aplikasi Mobile Rasmi (iOS & Android)</strong>: Imbas QR code, pantau, dan luluskan kebenaran terminal dari jauh.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section id="senibina-teras" class="section-block">
+      <h2><span class="num">02</span> Konsep Teras & Mod Operasi T3 Code</h2>
+      <p>Untuk menguasai T3 Code, anda perlu memahami 4 konsep asas berikut:</p>
+
+      <h3>1. Konsep "Thread" (Bukan Sekadar Chat)</h3>
+      <p>Di T3 Code, satu <strong>Thread</strong> mewakili satu unit tugasan kerja (*Job Session*). Anda boleh memiliki puluhan thread yang aktif serentak:</p>
+      <ul>
+        <li>Thread 1: <code>refactor/auth-jwt</code> (Dijana oleh Claude 3.7 Sonnet)</li>
+        <li>Thread 2: <code>docs/api-specification</code> (Dijana oleh Gemini Pro)</li>
+        <li>Thread 3: <code>fix/database-leak</code> (Dijana oleh OpenCode)</li>
+      </ul>
+
+      <h3>2. Mod Kebenaran (Permission Modes)</h3>
+      <p>T3 Code membolehkan anda menetapkan tahap kawalan keselamatan ke atas arahan terminal dan pengeditan fail oleh AI (tekan <span class="tag tag-shortcut">Ctrl + Shift + A</span> dalam thread):</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Mod</th>
+            <th>Tindakan Ejen</th>
+            <th>Bila Sesuai Digunakan?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Supervised</strong></td>
+            <td>Ejen <strong>wajib meminta izin anda</strong> bagi setiap perintah terminal dan setiap fail yang ingin diubah.</td>
+            <td>Untuk kod produksi yang sensitif atau arahan yang berisiko merosakkan data.</td>
+          </tr>
+          <tr>
+            <td><strong>Auto-accept edits</strong></td>
+            <td>Pengeditan fail diluluskan secara automatik, tetapi perintah terminal berbahaya tetap memerlukan kelulusan anda.</td>
+            <td>Sangat sesuai untuk kerja pembangunan biasa (rapid coding).</td>
+          </tr>
+          <tr>
+            <td><strong>Auto</strong></td>
+            <td>Menggunakan logik keselamatan automatik provider untuk meluluskan tugas rutin.</td>
+            <td>Apabila anda mempercayai review terbina provider seperti Claude atau Codex.</td>
+          </tr>
+          <tr>
+            <td><strong>Full access</strong></td>
+            <td>Ejen boleh menjalankan terminal dan mengedit kod tanpa sebarang prompt pengesahan.</td>
+            <td>Untuk tugasan automasi pantas dalam persekitaran ujian (scratch project).</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>3. Steer vs Queue (Mengawal Ejen Semasa Berlari)</h3>
+      <p>Apabila anda menghantar mesej semasa ejen sedang sibuk memproses kod:</p>
+      <ul>
+        <li><strong>Steer (<span class="tag tag-shortcut">Ctrl + Enter</span>):</strong> Menghantar arahan serta-merta untuk membetulkan atau menukar arah tindakan ejen tanpa menunggu ia siap.</li>
+        <li><strong>Queue:</strong> Menyimpan mesej anda dalam barisan untuk diproses sejurus selepas langkah semasa selesai.</li>
+        <li><strong>Start in Background (<span class="tag tag-shortcut">Ctrl + Alt + Enter</span>):</strong> Biarkan thread ini berjalan di latar belakang dan buka serta-merta tetingkap thread baharu untuk kerja seterusnya.</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section id="persediaan-akaun" class="section-block">
+      <h2><span class="num">03</span> Persediaan: Menghubungkan Langganan Sedia Ada</h2>
+      <p>Anda tidak perlu memasukkan API key berbayar sekiranya anda sudah mempunyai akaun langganan. Sambungkan terus sesi peranti anda:</p>
+
+      <div class="grid-2">
+        <div class="box-feature">
+          <h4><span class="tag tag-claude">Claude</span> 1. Claude Team / Pro</h4>
+          <p>Jika komputer anda mempunyai Claude Code CLI, buka terminal (PowerShell atau Bash) dan jalankan:</p>
+          <pre>claude auth login</pre>
+          <p style="font-size:0.85rem; color:var(--text-muted);">Pelayar web akan dibuka untuk mengesahkan akaun Claude Team anda. T3 Code akan terus mengesan sesi ini.</p>
+        </div>
+
+        <div class="box-feature">
+          <h4><span class="tag tag-opencode">OpenCode</span> 2. OpenCode</h4>
+          <p>Pastikan CLI OpenCode anda sudah dilog masuk:</p>
+          <pre>opencode auth login</pre>
+          <p style="font-size:0.85rem; color:var(--text-muted);">T3 Code berhubung terus dengan ejen OpenCode untuk delegasi tugasan.</p>
+        </div>
+      </div>
+
+      <div class="box-feature" style="margin-top:16px;">
+        <h4><span class="tag tag-gemini">Gemini</span> 3. Google Gemini Pro / Antigravity</h4>
+        <p>Bagi ekosistem Google / Gemini Pro, anda tidak perlukan sebarang pemasangan CLI terminal tambahan:</p>
+        <ol>
+          <li>Buka tetingkap <strong>Settings</strong> di T3 Code.</li>
+          <li>Pergi ke bahagian <strong>Providers &gt; Antigravity</strong>.</li>
+          <li>Klik butang <strong>Install Antigravity</strong> dan <strong>Sign in with Google</strong>.</li>
+          <li>Log masuk dengan akaun Google yang mempunyai langganan Gemini Pro / Advanced anda. Selesai!</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- SECTION 4 -->
+    <section id="tutorial-praktikal" class="section-block">
+      <h2><span class="num">04</span> Tutorial Praktikal: Aliran Kerja Pembangunan Harian</h2>
+
+      <div class="workflow-step">
+        <div class="step-badge">1</div>
+        <div class="step-content">
+          <h3>Buka Direktori Projek Anda</h3>
+          <p>Klik <strong>File &gt; Open Folder</strong> atau pilih projek di sidebar. Semua fail projek anda akan dipaparkan di penjelajah fail.</p>
+        </div>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-badge">2</div>
+        <div class="step-content">
+          <h3>Cipta Thread Baharu & Pilih Model Yang Tepat</h3>
+          <p>Tekan <span class="tag tag-shortcut">Ctrl + N</span> untuk membuka thread. Di penjuru thread, tentukan AI yang paling berpadanan dengan jenis tugasan:</p>
+          <ul>
+            <li><strong>Claude 3.7 / 3.5 Sonnet:</strong> Paling mantap untuk tugas pengaturcaraan logik rumit, refactoring kod sedia ada, dan debugging.</li>
+            <li><strong>Gemini 2.5 Pro:</strong> Paling unggul apabila anda memerlukan AI membaca keseluruhan dokumentasi projek beribu baris sekaligus (kerana tingkap konteksnya yang amat besar sehingga 1–2 juta token).</li>
+            <li><strong>OpenCode:</strong> Sesuai untuk pengaturcaraan pantas dan skrip automasi harian.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-badge">3</div>
+        <div class="step-content">
+          <h3>Tulis Arahan Yang Mempunyai Skop Jelas</h3>
+          <p>Elakkan memberi arahan kabur. Sebaliknya, terangkan fail yang terlibat dan kriteria kejayaan:</p>
+          <pre>Contoh Prompt Berkesan:
+"Aku perlukan endpoint API /api/users/export yang membenarkan admin muat turun senarai pengguna dalam format CSV.
+1. Guna modul json2csv.
+2. Pastikan ada check permission JWT middleware.
+3. Tulis unit test dalam test/users.test.js."</pre>
+        </div>
+      </div>
+
+      <div class="workflow-step">
+        <div class="step-badge">4</div>
+        <div class="step-content">
+          <h3>Semak Diff Kod & Sahkan Perubahan</h3>
+          <p>Ejen akan mencadangkan penukaran fail dan paparan *Diff Inspector* akan muncul:</p>
+          <ul>
+            <li>Warna <strong>Hijau</strong>: Baris kod baharu yang ditambah.</li>
+            <li>Warna <strong>Merah</strong>: Kod lama yang dipadam.</li>
+            <li>Gunakan kekunci <span class="tag tag-shortcut">Ctrl + F</span> dalam diff inspector untuk mencari perkataan atau fungsi tertentu.</li>
+            <li>Klik <strong>Approve</strong> untuk menyimpan kod ke dalam fail sebenar.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5 -->
+    <section id="ciri-berkuasa" class="section-block">
+      <h2><span class="num">05</span> Ciri-Ciri Berkuasa Lanjutan T3 Code</h2>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>🌿 1. Pengasingan Git Worktrees</h3>
+          <p>Ini adalah kelebihan utama berbanding editor biasa. Tekan <span class="tag tag-shortcut">Ctrl + Shift + X</span> pada thread baharu dan pilih <strong>New Worktree</strong>.</p>
+          <p>T3 Code akan mencipta salinan cawangan (*branch*) terasing di belakang tabir. Anda boleh membuka:</p>
+          <ul>
+            <li><strong>Thread A:</strong> Claude membina antaramuka Tailwind baru.</li>
+            <li><strong>Thread B:</strong> Gemini membaiki isu schema pangkalan data.</li>
+          </ul>
+          <p>Kedua-dua ejen menjalankan kod pada masa yang sama tanpa sebarang kemungkinan fail bertindih atau rosak!</p>
+        </div>
+
+        <div class="card">
+          <h3>📱 2. Kawalan Jauh Dari Telefon Pintar</h3>
+          <p>Anda tidak perlu terperap di hadapan laptop sepanjang hari:</p>
+          <ol>
+            <li>Buka terminal komputer anda dan pasang servis latar belakang:
+              <pre>t3 service install</pre>
+            </li>
+            <li>Muat turun aplikasi <strong>T3 Code</strong> di telefon pintar anda (tersedia di iOS App Store dan Google Play Store).</li>
+            <li>Imbas kod QR daripada desktop anda untuk *pairing*.</li>
+            <li>Sekarang, anda boleh berjalan keluar, minum kopi, dan tetap menerima notifikasi kelulusan perintah terus pada skrin telefon anda!</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6 -->
+    <section id="pintasan-keyboard" class="section-block">
+      <h2><span class="num">06</span> Cheat Sheet: Pintasan Papan Kekunci Penting</h2>
+      <p>Tingkatkan kelajuan kerja anda dengan pintasan rasmi berikut (pada Windows guna <code>Ctrl</code>, pada Mac guna <code>Cmd</code>):</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Pintasan (Shortcut)</th>
+            <th>Tindakan / Fungsi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag tag-shortcut">Ctrl + N</span></td>
+            <td>Membuka Thread baharu untuk tugasan pengkodan baharu.</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-shortcut">Ctrl + Shift + M</span></td>
+            <td>Membuka menu pemilihan Model (Claude, Gemini, OpenCode, dll).</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-shortcut">Ctrl + Shift + E</span></td>
+            <td>Melaraskan tahap pemikiran model (*Reasoning Effort* Rendah / Sederhana / Tinggi).</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-shortcut">Ctrl + Shift + A</span></td>
+            <td>Menukar Mod Kebenaran (*Supervised*, *Auto-accept*, *Full access*).</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-shortcut">Ctrl + Shift + X</span></td>
+            <td>Menukar strategi workspace (Pilih Checkout semasa atau cipta Worktree baharu).</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-shortcut">Ctrl + Enter</span></td>
+            <td>Menghantar mesej sebagai arahan pembetulan segera (*Steer*).</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-shortcut">Ctrl + Alt + Enter</span></td>
+            <td>Hantar arahan, jalankan di latar belakang, dan terus buka thread baru.</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-shortcut">Ctrl + F</span></td>
+            <td>Mencari teks di dalam fail Diff atau carian mesej dalam thread perbualan.</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-shortcut">Ctrl + 1</span> hingga <span class="tag tag-shortcut">Ctrl + 9</span></td>
+            <td>Melompat pantas ke thread nombor 1 hingga 9 yang sedang aktif.</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-shortcut">Ctrl + Z</span></td>
+            <td>Undo tindakan sidebar seperti unpin, archive, atau buang draft (dalam tempoh 5 saat).</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SECTION 7 -->
+    <section id="faq-troubleshoot" class="section-block">
+      <h2><span class="num">07</span> Soalan Lazim & Isu Keselamatan Sandbox</h2>
+
+      <div class="callout callout-warning">
+        <strong>❓ Soalan Lazim: Kenapa T3 Code tidak simpan fail ke folder lain di laptop saya (contoh: <code>2-PROJEK</code>)?</strong>
+        <p style="margin-top:8px;">
+          <strong>Jawapan:</strong> Ini adalah ciri perlindungan keselamatan teras (*Sandboxed Workspace*). Apabila anda membuka T3 Code di dalam sesuatu direktori (contohnya <code>tutorial-t3</code>), ejen AI sengaja disekat daripada mengubah sebarang fail di luar folder tersebut. Ini memastikan AI tidak akan secara sengaja memadam, menimpa, atau mencuri maklumat peribadi di Desktop, Documents, atau pemacu (C:/, D:/) anda yang lain.
+        </p>
+      </div>
+
+      <div class="callout callout-success">
+        <strong>💡 Bagaimana jika saya mahu bekerja di dalam folder <code>2-PROJEK</code>?</strong>
+        <p style="margin-top:8px;">
+          Mudah sahaja: Pada menu T3 Code, pilih <strong>File &gt; Open Folder</strong>, kemudian pilih folder <code>2-PROJEK</code> tersebut. Sebaik sahaja ia dibuka sebagai projek aktif, ejen AI dibenarkan mencipta dan mengedit semua fail di dalam folder tersebut tanpa sebarang masalah.
+        </p>
+      </div>
+
+      <h3>Ringkasan Nasihat Pro</h3>
+      <p>
+        Jangan anggap T3 Code sebagai pesaing kepada Claude, OpenCode atau Gemini. Sebaliknya, anggap ia seperti <strong>orkestra</strong>: Claude, Gemini, dan OpenCode adalah instrumen muzik anda yang hebat, manakala <strong>T3 Code adalah konduktornya</strong> yang menyelaraskan segalanya supaya pembangunan perisian anda menjadi 10 kali lebih pantas dan teratur.
+      </p>
+    </section>
+
+    <footer>
+      Dokumentasi ini dijana secara tempatan dalam ruang kerja T3 Code anda. Sedia untuk dikongsi atau dirujuk pada masa akan datang.
+    </footer>
+  </main>
+
+</body>
+</html>
