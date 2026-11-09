@@ -677,15 +677,76 @@
     <!-- SECTION 2 -->
     <section id="senibina-teras" class="section-block">
       <h2><span class="num">02</span> Konsep Teras & Mod Operasi T3 Code</h2>
-      <p>Untuk menguasai T3 Code, anda perlu memahami 4 konsep asas berikut:</p>
+      <p>Untuk menguasai T3 Code, anda perlu memahami 3 konsep asas berikut:</p>
 
       <h3>1. Konsep "Thread" (Bukan Sekadar Chat)</h3>
-      <p>Di T3 Code, satu <strong>Thread</strong> mewakili satu unit tugasan kerja (*Job Session*). Anda boleh memiliki puluhan thread yang aktif serentak:</p>
+      <p>Di T3 Code, satu <strong>Thread</strong> mewakili <strong>satu tugasan kerja</strong> yang terikat pada projek sebenar anda. Ia nampak seperti chat biasa, tetapi keupayaannya jauh berbeza.</p>
+
+      <div class="grid-2">
+        <div class="box-feature">
+          <h4>💬 "New Chat" di Claude.ai / Gemini / ChatGPT</h4>
+          <p style="margin-bottom:0;">Seperti <strong>menelefon kawan yang pandai</strong>. Dia memberi nasihat dan contoh kod, tetapi <em>anda sendiri</em> yang perlu menyalin, menampal dan menguji.</p>
+        </div>
+        <div class="box-feature">
+          <h4>🧵 Thread di T3 Code</h4>
+          <p style="margin-bottom:0;">Seperti <strong>mengupah tukang untuk satu kerja</strong>. Dia masuk ke projek anda, guna peralatan (terminal, Git), buat kerja, dan anda periksa hasilnya sebelum terima.</p>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>Aspek</th><th>New Chat (web/app)</th><th>Thread T3 Code</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Akses fail projek</strong></td><td>❌ Perlu upload sendiri</td><td>✅ Terus baca dan edit fail dalam folder projek</td></tr>
+          <tr><td><strong>Jalankan arahan</strong></td><td>❌ Tidak boleh</td><td>✅ Terminal, test, build (ikut mod kebenaran)</td></tr>
+          <tr><td><strong>Git</strong></td><td>❌ Tiada</td><td>✅ Branch atau worktree sendiri, commit dan PR</td></tr>
+          <tr><td><strong>Semak perubahan</strong></td><td>Salin dan tampal secara manual</td><td>✅ Diff inspector dan checkpoint, boleh undur semula</td></tr>
+          <tr><td><strong>Tukar model AI</strong></td><td>❌ Terikat pada satu syarikat</td><td>✅ Tukar Claude ↔ Gemini ↔ Codex dalam thread yang sama</td></tr>
+          <tr><td><strong>Kerja serentak</strong></td><td>Satu demi satu</td><td>✅ Banyak thread berjalan serentak, dan boleh guna subagent</td></tr>
+          <tr><td><strong>Berjalan di latar</strong></td><td>❌ Perlu tunggu di skrin</td><td>✅ Biarkan berjalan dan pantau dari telefon</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:0.92rem; color:var(--text-muted);">Nota: Versi terminal seperti Claude Code, Gemini CLI dan Codex CLI sudah boleh akses fail dan jalankan arahan. T3 Code menambah UI untuk mengurus banyak sesi serentak, worktree, pertukaran provider dan kawalan dari telefon.</p>
+
+      <h4 style="margin:22px 0 8px 0; color:var(--heading);">Peraturan emas: Satu tugasan = Satu thread</h4>
+      <p>Contoh susunan thread yang kemas:</p>
       <ul>
-        <li>Thread 1: <code>refactor/auth-jwt</code> (Dijana oleh Claude Opus 5.5)</li>
-        <li>Thread 2: <code>docs/api-specification</code> (Dijana oleh Gemini Pro)</li>
-        <li>Thread 3: <code>fix/database-leak</code> (Dijana oleh OpenCode)</li>
+        <li>Thread 1: <strong>Tambah dark mode</strong> → branch <code>t3/dark-mode</code> (Claude)</li>
+        <li>Thread 2: <strong>Tulis dokumentasi API</strong> → branch <code>t3/api-docs</code> (Gemini)</li>
+        <li>Thread 3: <strong>Betulkan bug login</strong> → branch <code>t3/fix-login</code> (OpenCode)</li>
       </ul>
+
+      <div class="grid-2">
+        <div class="box-feature">
+          <h4>✅ Buka thread baharu bila...</h4>
+          <ul style="margin-bottom:0;">
+            <li>Mula tugasan atau ciri yang <strong>berlainan</strong>.</li>
+            <li>Tugasan sebelum ini sudah <strong>siap</strong> (sudah di-commit atau digabung).</li>
+            <li>Thread sudah terlalu panjang dan AI mula "lupa" atau keliru.</li>
+            <li>Mahu cuba <strong>pendekatan lain</strong> tanpa mengganggu kerja asal (guna worktree).</li>
+          </ul>
+        </div>
+        <div class="box-feature">
+          <h4>↩️ Teruskan thread sama bila...</h4>
+          <ul style="margin-bottom:0;">
+            <li>Membetulkan atau menambah baik kerja yang <strong>sama</strong>.</li>
+            <li>AI perlukan konteks perbincangan sebelum ini.</li>
+            <li>Menjawab soalan susulan tentang perubahan yang baru dibuat.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4 style="margin:22px 0 8px 0; color:var(--heading);">Tip guna thread dengan berkesan</h4>
+      <ol>
+        <li><strong>Mesej pertama yang jelas.</strong> Nyatakan matlamat, fail berkaitan dan bagaimana tahu kerja itu siap. Mesej pertama menentukan hala tuju keseluruhan thread.</li>
+        <li><strong>Beri nama yang bermakna.</strong> Tukar tajuk thread supaya mudah dicari, contohnya "Fix bug login Google" berbanding "New thread".</li>
+        <li><strong>Pilih model sebelum mula.</strong> Tugasan berat guna model kuat; soalan ringkas guna model pantas supaya kuota jimat.</li>
+        <li><strong>Semak diff sebelum terima.</strong> Jangan terus commit; baca perubahan dahulu di panel Git.</li>
+        <li><strong>Guna worktree untuk kerja serentak</strong>, supaya dua thread tidak mengubah fail yang sama (lihat Bahagian 05).</li>
+        <li><strong>Tutup kitaran.</strong> Bila siap, commit atau buka PR, kemudian arkibkan thread supaya sidebar kekal kemas.</li>
+        <li><strong>Thread terlalu panjang?</strong> Minta AI tulis ringkasan, kemudian mulakan thread baharu dengan ringkasan itu.</li>
+      </ol>
 
       <h3>2. Mod Kebenaran (Permission Modes)</h3>
       <p>T3 Code membolehkan anda menetapkan tahap kawalan keselamatan ke atas arahan terminal dan pengeditan fail oleh AI (tekan <span class="tag tag-shortcut">Ctrl + Shift + A</span> dalam thread):</p>
