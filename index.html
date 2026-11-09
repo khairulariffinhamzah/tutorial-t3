@@ -556,8 +556,9 @@
       <li><a href="#persediaan-akaun">3. Pasang &amp; Setup Langganan</a></li>
       <li><a href="#tutorial-praktikal">4. Aliran Kerja & Tutorial</a></li>
       <li><a href="#ciri-berkuasa">5. Worktree, Mobile, PR &amp; Fork</a></li>
-      <li><a href="#pintasan-keyboard">6. Cheat Sheet Shortcuts</a></li>
-      <li><a href="#faq-troubleshoot">7. Soalan Lazim & Sandbox</a></li>
+      <li><a href="#banyak-akaun">6. Urus Banyak Akaun</a></li>
+      <li><a href="#pintasan-keyboard">7. Cheat Sheet Shortcuts</a></li>
+      <li><a href="#faq-troubleshoot">8. Soalan Lazim & Sandbox</a></li>
     </ul>
 
     <div class="nav-label" style="margin-top:auto;">Guna Langganan Sedia Ada</div>
@@ -923,8 +924,115 @@ vp run dev</pre>
     </section>
 
     <!-- SECTION 6 -->
+    <section id="banyak-akaun" class="section-block">
+      <h2><span class="num">06</span> Menguruskan Banyak Akaun</h2>
+      <p>Sesetengah pengguna ada lebih daripada satu akaun. Contohnya akaun kerja dan akaun peribadi, atau beberapa langganan berbayar. T3 Code menyokong ini secara rasmi melalui <strong>provider instance</strong>: satu instance untuk setiap akaun, masing-masing dengan login sendiri.</p>
+
+      <div class="callout">
+        <strong>Konsep utama:</strong> Satu <em>provider</em> (contohnya Antigravity) boleh ada banyak <em>instance</em>. Setiap instance ialah satu akaun. Anda memilih instance mana yang digunakan melalui <strong>pemilih model</strong> dalam thread.
+      </div>
+
+      <h3>Langkah 1: Tambah Satu Instance Untuk Setiap Akaun</h3>
+
+      <div class="grid-2">
+        <div class="box-feature">
+          <h4><span class="tag tag-gemini">Google</span> Antigravity</h4>
+          <ol>
+            <li>Buka <strong>Settings &gt; Providers</strong> (desktop atau web).</li>
+            <li>Tambah instance Antigravity baharu.</li>
+            <li>Beri nama yang jelas, contohnya <code>AG – akaun1</code>, <code>AG – akaun2</code>.</li>
+            <li>Klik <strong>Sign in</strong> dan log masuk dengan akaun Google yang berkaitan.</li>
+          </ol>
+          <p style="font-size:0.92rem; color:var(--text-muted);">Runtime Antigravity dimuat turun sekali sahaja dan dikongsi oleh semua instance.</p>
+        </div>
+
+        <div class="box-feature">
+          <h4><span class="tag tag-claude">Claude</span> Claude Code</h4>
+          <p>Setiap akaun Claude perlukan folder konfigurasi sendiri. Log masuk akaun kedua di terminal:</p>
+          <pre>mkdir -p ~/.claude_personal
+CLAUDE_CONFIG_DIR=~/.claude_personal claude auth login</pre>
+          <p>Kemudian tambah instance Claude baharu dalam <strong>Settings &gt; Providers</strong> dan isi medan <strong>CLAUDE_CONFIG_DIR path</strong> dengan <code>~/.claude_personal</code>. Akaun pertama biarkan kosong.</p>
+        </div>
+      </div>
+
+      <div class="box-feature" style="margin-top:16px;">
+        <h4><span class="tag tag-opencode">Codex</span> ChatGPT / Codex</h4>
+        <p>Paling mudah: tambah akaun ChatGPT lain dalam <strong>Settings &gt; Providers</strong>, kemudian pilih akaun itu dari pemilih model. Login CLI anda tidak terjejas.</p>
+      </div>
+
+      <h3>Langkah 2: Pantau Baki Kuota</h3>
+      <ul>
+        <li>Buka <strong>Usage &gt; Limits</strong>. Setiap akaun dipaparkan sebagai satu segmen dalam bar, dengan had <strong>5 jam</strong> dan had <strong>mingguan</strong> masing-masing.</li>
+        <li>Akaun disusun mengikut masa reset 5 jam yang paling hampir. Klik segmen untuk lihat pelan, masa reset dan di mana akaun itu log masuk.</li>
+        <li>Mahu nampak kuota sentiasa? Hidupkan <strong>Settings &gt; Appearance &gt; Thread details &gt; Usage limits</strong>. Baki kuota akaun semasa akan dipaparkan di bahagian bawah kad butiran thread.</li>
+        <li>Penggunaan di luar T3 Code (contohnya di laman web atau CLI) juga dikira dalam had yang sama.</li>
+      </ul>
+
+      <h3>Langkah 3: Bertukar Akaun Bila Kuota Habis</h3>
+      <p>Pilih instance lain dari <strong>pemilih model</strong> dalam thread. Apa yang berlaku bergantung pada provider:</p>
+      <table>
+        <thead>
+          <tr><th>Situasi</th><th>Apa Yang Berlaku</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Codex → akaun Codex lain</strong> (yang berkongsi <code>CODEX_HOME</code>)</td>
+            <td>Thread diteruskan terus dengan sejarah penuh.</td>
+          </tr>
+          <tr>
+            <td><strong>Claude → akaun Claude lain</strong> (folder konfigurasi berbeza)</td>
+            <td>Folder akaun diasingkan, jadi thread sedia ada tidak boleh terus bertukar. Mulakan thread baharu, atau guna handoff di bawah.</td>
+          </tr>
+          <tr>
+            <td><strong>Tukar ke provider/akaun yang tidak serasi</strong></td>
+            <td><strong>Portable handoff:</strong> T3 Code memindahkan pilihan sejarah perbualan (permintaan asal, mesej terkini, keputusan arahan) kepada akaun baharu. Ejen boleh membaca semula sejarah penuh jika perlu.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout callout-warning">
+        <strong>⚠️ Apa yang hilang semasa handoff:</strong>
+        <p style="margin-top:8px;">Handoff <strong>tidak</strong> membawa proses pemikiran ejen sebelum ini, keadaan alat yang sedang berjalan, atau lampiran. Jadi:</p>
+        <ul style="margin-bottom:0;">
+          <li>Tukar akaun <strong>selepas satu langkah selesai</strong>, bukan di tengah tugasan rumit.</li>
+          <li>Ulang semula syarat penting dalam mesej pertama kepada akaun baharu.</li>
+          <li>Hantar semula lampiran (gambar, PDF) jika masih diperlukan.</li>
+        </ul>
+      </div>
+
+      <h3>Strategi Harian Yang Disyorkan</h3>
+      <div class="grid-3">
+        <div class="box-feature">
+          <h4>📂 Ikut Projek</h4>
+          <p>Akaun A untuk projek A, akaun B untuk projek B. Paling kemas dan jarang perlu bertukar di tengah kerja.</p>
+        </div>
+        <div class="box-feature">
+          <h4>🔄 Ikut Giliran</h4>
+          <p>Guna satu akaun sehingga hampir habis, kemudian beralih ke akaun seterusnya ketika memulakan tugasan baharu.</p>
+        </div>
+        <div class="box-feature">
+          <h4>🧠 Ikut Jenis Kerja</h4>
+          <p>Akaun berkuota tinggi untuk kerja berat (refactor, subagent). Akaun lain untuk soalan ringkas dan dokumentasi.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-warning">
+        <strong>🚫 Elakkan "router" atau proxy putaran akaun pihak ketiga</strong>
+        <p style="margin-top:8px;">Ada alat tidak rasmi yang menghimpunkan banyak akaun dan menukar akaun secara automatik apabila kuota habis. Elakkan alat seperti ini kerana:</p>
+        <ul style="margin-bottom:0;">
+          <li><strong>Risiko akaun digantung.</strong> Provider boleh menganggapnya sebagai cubaan memintas had penggunaan. Akaun Google yang digantung boleh menjejaskan Gmail, Drive dan perkhidmatan lain.</li>
+          <li><strong>Risiko keselamatan.</strong> Proxy itu memegang token login semua akaun anda.</li>
+          <li><strong>Tidak diperlukan.</strong> Ciri instance rasmi T3 Code sudah membolehkan anda bertukar akaun dengan beberapa klik.</li>
+        </ul>
+        <p style="margin-top:10px; margin-bottom:0;">Sila semak terma perkhidmatan setiap provider untuk peraturan penggunaan banyak akaun.</p>
+      </div>
+
+      <p style="font-size:0.92rem; color:var(--text-muted);">Rujukan: dokumentasi rasmi T3 Code di <a href="https://github.com/pingdotgg/t3code/tree/main/docs/user" style="color:var(--accent);">github.com/pingdotgg/t3code/docs/user</a> (providers-antigravity, providers-claude, providers-codex, usage, portable-handoffs).</p>
+    </section>
+
+    <!-- SECTION 7 -->
     <section id="pintasan-keyboard" class="section-block">
-      <h2><span class="num">06</span> Cheat Sheet: Pintasan Papan Kekunci Penting</h2>
+      <h2><span class="num">07</span> Cheat Sheet: Pintasan Papan Kekunci Penting</h2>
       <p>Tingkatkan kelajuan kerja anda dengan pintasan rasmi berikut (pada Windows guna <code>Ctrl</code>, pada Mac guna <code>Cmd</code>):</p>
 
       <table>
@@ -979,9 +1087,9 @@ vp run dev</pre>
       </table>
     </section>
 
-    <!-- SECTION 7 -->
+    <!-- SECTION 8 -->
     <section id="faq-troubleshoot" class="section-block">
-      <h2><span class="num">07</span> Soalan Lazim & Isu Keselamatan Sandbox</h2>
+      <h2><span class="num">08</span> Soalan Lazim & Isu Keselamatan Sandbox</h2>
 
       <div class="callout callout-warning">
         <strong>❓ Soalan Lazim: Kenapa T3 Code tidak simpan fail ke folder lain di laptop saya (contoh: <code>2-PROJEK</code>)?</strong>
