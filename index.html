@@ -207,6 +207,7 @@
 
     /* MAIN CONTENT */
     main {
+      min-width: 0; /* elak pre/jadual menolak lebar halaman */
       flex: 1;
       padding: 40px 48px 80px 48px;
       max-width: 980px;
@@ -336,6 +337,7 @@
     }
 
     th, td {
+      overflow-wrap: anywhere;
       border: 1px solid var(--card-border);
       padding: 13px 16px;
       text-align: left;
@@ -383,16 +385,20 @@
     /* GRIDS */
     .grid-2 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(310px, 100%), 1fr));
       gap: 18px;
       margin: 18px 0;
     }
 
     .grid-3 {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
       gap: 16px;
       margin: 18px 0;
+    }
+
+    .box-feature, .card, .step-content, .legend div {
+      min-width: 0;
     }
 
     .box-feature {
@@ -500,7 +506,7 @@
 
     .legend {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
       gap: 12px;
       margin: 0 0 24px 0;
     }
